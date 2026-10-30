@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Flow - AI Security System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #0a0e17;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .flowchart-container {
+            background: linear-gradient(145deg, #111927, #0d1520);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -8px rgba(0,0,0,0.8), inset 0 1px 2px rgba(255,255,255,0.05);
+            border: 1px solid rgba(100, 200, 255, 0.08);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .flow-title {
+            text-align: center;
+            color: #64d8ff;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+            text-shadow: 0 0 30px rgba(100, 216, 255, 0.15);
+            font-family: 'Courier New', monospace;
+        }
+
+        .flow-title span {
+            color: #ff6b9d;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, rgba(20, 40, 60, 0.7), rgba(10, 20, 35, 0.9));
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-bottom: 15px;
+            border-left: 4px solid #64d8ff;
+            border: 1px solid rgba(100, 216, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .flow-step:hover {
+            transform: translateX(5px);
+            border-color: #ff6b9d;
+            box-shadow: 0 4px 25px rgba(100, 216, 255, 0.1);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .step-badge {
+            background: linear-gradient(135deg, #64d8ff, #3a8bcb);
+            color: #0a0e17;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            min-width: 90px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .step-badge.purple {
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
+        }
+
+        .step-badge.pink {
+            background: linear-gradient(135deg, #f472b6, #db2777);
+        }
+
+        .step-badge.green {
+            background: linear-gradient(135deg, #34d399, #059669);
+        }
+
+        .step-badge.orange {
+            background: linear-gradient(135deg, #fb923c, #ea580c);
+        }
+
+        .step-title {
+            color: #e8f4ff;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .step-subtitle {
+            color: #8ab4d6;
+            font-size: 13px;
+            font-weight: 400;
+            margin-left: auto;
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+        }
+
+        .step-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            padding-left: 105px;
+        }
+
+        .step-detail-item {
+            color: #b0d0e8;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .step-detail-item .icon {
+            font-size: 16px;
+        }
+
+        .step-detail-item .highlight {
+            color: #64d8ff;
+            font-weight: 500;
+        }
+
+        .step-detail-item .highlight.pink {
+            color: #f472b6;
+        }
+
+        .step-detail-item .highlight.green {
+            color: #34d399;
+        }
+
+        .step-detail-item .highlight.orange {
+            color: #fb923c;
+        }
+
+        .arrow-down {
+            text-align: center;
+            color: #2a4a6a;
+            font-size: 28px;
+            margin: 2px 0;
+            opacity: 0.6;
+            font-family: 'Courier New', monospace;
+        }
+
+        .input-box {
+            background: linear-gradient(135deg, rgba(100, 216, 255, 0.08), rgba(100, 216, 255, 0.02));
+            border: 2px dashed rgba(100, 216, 255, 0.25);
+            border-radius: 16px;
+            padding: 18px 25px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .input-box .input-label {
+            color: #64d8ff;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+        }
+
+        .input-box .input-sub {
+            color: #4a7a9a;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .output-box {
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.08), rgba(251, 146, 60, 0.02));
+            border: 2px solid rgba(251, 146, 60, 0.2);
+            border-radius: 16px;
+            padding: 18px 25px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .output-box .output-label {
+            color: #fb923c;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+        }
+
+        .output-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 30px;
+            padding-left: 105px;
+            margin-top: 8px;
+        }
+
+        .output-grid .out-item {
+            color: #b0d0e8;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .output-grid .out-item .icon {
+            font-size: 16px;
+        }
+
+        .connector-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20px;
+            color: #1a3a5a;
+            font-size: 20px;
+            letter-spacing: 4px;
+            opacity: 0.4;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .flowchart-container {
+                padding: 20px;
+            }
+            .step-details {
+                padding-left: 0;
+                margin-top: 8px;
+            }
+            .step-header {
+                flex-wrap: wrap;
+            }
+            .step-subtitle {
+                margin-left: 0;
+                width: 100%;
+            }
+            .output-grid {
+                padding-left: 0;
+                grid-template-columns: 1fr;
+            }
+            .flow-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flowchart-container">
+        <div class="flow-title">📊 PROJECT <span>FLOW</span></div>
+
+        <!-- INPUT -->
+        <div class="input-box">
+            <div class="input-label">📹 INPUT (Webcam)</div>
+            <div class="input-sub">Real-time video stream · 30 fps · 1080p</div>
+        </div>
+
+        <div class="connector-line">│</div>
+        <div class="connector-line">▼</div>
+
+        <!-- PHASE 1 -->
+        <div class="flow-step">
+            <div class="step-header">
+                <span class="step-badge">PHASE 1</span>
+                <span class="step-title">⚡ Computer Vision</span>
+                <span class="step-subtitle">MediaPipe · YOLOv8</span>
+            </div>
+            <div class="step-details">
+                <span class="step-detail-item"><span class="icon">👤</span> Face Detection (<span class="highlight">MediaPipe</span>)</span>
+                <span class="step-detail-item"><span class="icon">👁️</span> Eye Tracking (<span class="highlight">EAR</span>)</span>
+                <span class="step-detail-item"><span class="icon">🧑</span> Person Detection (<span class="highlight">YOLOv8</span>)</span>
+                <span class="step-detail-item"><span class="icon">📦</span> Object Detection</span>
+            </div>
+        </div>
+
+        <div class="connector-line">│</div>
+        <div class="connector-line">▼</div>
+
+        <!-- PHASE 2 -->
+        <div class="flow-step">
+            <div class="step-header">
+                <span class="step-badge purple">PHASE 2</span>
+                <span class="step-title">⚠️ Event Detection</span>
+                <span class="step-subtitle">Real-time alerts</span>
+            </div>
+            <div class="step-details">
+                <span class="step-detail-item"><span class="icon">😴</span> Fatigue (<span class="highlight pink">Aankh band = fatigue</span>)</span>
+                <span class="step-detail-item"><span class="icon">🚫</span> Unauthorized Person (<span class="highlight pink">Multiple people</span>)</span>
+                <span class="step-detail-item"><span class="icon">🔒</span> Security Violation (<span class="highlight pink">Shoulder surfing</span>)</span>
+            </div>
+        </div>
+
+        <div class="connector-line">│</div>
+        <div class="connector-line">▼</div>
+
+        <!-- PHASE 3 -->
+        <div class="flow-step">
+            <div class="step-header">
+                <span class="step-badge green">PHASE 3</span>
+                <span class="step-title">🧠 AI Reasoning (Local LLM)</span>
+                <span class="step-subtitle">Ollama + LLaVA</span>
+            </div>
+            <div class="step-details">
+                <span class="step-detail-item"><span class="icon">🤖</span> <span class="highlight green">Ollama</span> + LLaVA Vision Model</span>
+                <span class="step-detail-item"><span class="icon">🧩</span> Context understanding</span>
+                <span class="step-detail-item"><span class="icon">📄</span> Report generation</span>
+            </div>
+        </div>
+
+        <div class="connector-line">│</div>
+        <div class="connector-line">▼</div>
+
+        <!-- PHASE 4 -->
+        <div class="flow-step" style="border-left-color: #fb923c; border-color: rgba(251, 146, 60, 0.2);">
+            <div class="step-header">
+                <span class="step-badge orange">PHASE 4</span>
+                <span class="step-title">📤 OUTPUT</span>
+                <span class="step-subtitle">Actionable insights</span>
+            </div>
+            <div class="output-grid">
+                <span class="out-item"><span class="icon">📊</span> Dashboard (Live video + stats)</span>
+                <span class="out-item"><span class="icon">🔔</span> Alerts (Toast notifications)</span>
+                <span class="out-item"><span class="icon">📁</span> Reports (JSON/CSV)</span>
+                <span class="out-item"><span class="icon">📡</span> IoT Actions (MQTT → ESP32)</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 25px; color: #1a3a5a; font-size: 12px; letter-spacing: 2px; border-top: 1px solid rgba(100,216,255,0.05); padding-top: 18px;">
+            ⚡ AI-Powered Security Monitoring System ⚡
+        </div>
+    </div>
+</body>
+</html>
